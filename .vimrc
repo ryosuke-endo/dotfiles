@@ -20,7 +20,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Note: You don't set neobundle settinf in .gvimrc!
 
 " Snipet関連
-NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neocomplete.vim'
 
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -28,7 +28,7 @@ NeoBundle 'Shougo/neosnippet-snippets'
 " Gitを便利に使う
 NeoBundle 'tpope/vim-fugitive'
 " indentの設定
-NeoBundle 'Yggdroot/indentLine'
+" NeoBundle 'Yggdroot/indentLine'
 " Rails向けのコマンドを提供する
 NeoBundle 'tpope/vim-rails'
 " Ruby向けにendを自動挿入してくれる
@@ -55,8 +55,15 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kana/vim-smartinput'
 " color scheme
 NeoBundle 'tomasr/molokai'
-NeoBundle 'chriskempson/tomorrow-theme'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'gosukiwi/vim-atom-dark'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'lifepillar/vim-solarized8'
+NeoBundle 'joshdick/onedark.vim'
+NeoBundle 'endel/vim-github-colorscheme'
+NeoBundle 'atelierbram/vim-colors_duotones'
+NeoBundle 'ciaranm/inkpot'
 " 画面上にディレクトリを表示してくれる
 NeoBundle 'schrooloose/nerdtree'
 " 隠しファイルをデフォルトで表示させる
@@ -68,11 +75,7 @@ autocmd VimEnter * execute 'NERDTree'
 
 call neobundle#end()
 
-if ($ft=='ruby')
-  colorscheme Tomorrow-Night
-else
-  colorscheme hybrid
-endif
+colorscheme solarized
 
 " Required:
 filetype plugin indent on
@@ -139,6 +142,8 @@ set ignorecase
 set clipboard=unnamed
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
+" indentの文字
+set tabstop=1
 " rubocopの設定
 let g:syntastic_mode_map = { 'mode': 'passive',
                 \ 'active_filetypes': ['ruby'] }
@@ -196,6 +201,27 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+""""""""""""""""""""""""""""""
+" ctrlpの設定
+""""""""""""""""""""""""""""""
+"  検索ウィンドウの設定
+" :help g:ctrlp_match_window
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'"
+
+""""""""""""""""""""""""""""""
+" neocompleteの設定
+""""""""""""""""""""""""""""""
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_ignore_case = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_auto_select = 1
+    let g:neocomplete#enable_enable_camel_case_completion = 0
+    if !exists('g:neocomplete#keyword_patterns')
+      let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns._ = '\h\w*'
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""""""""""""""""""
 " 最後のカーソル位置を復元する
