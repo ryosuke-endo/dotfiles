@@ -21,12 +21,25 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Snipet関連
 NeoBundle 'Shougo/neocomplete.vim'
-
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
+" unite vim
+NeoBundle 'Shougo/unite.vim'
+" vimproc
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \    },
+      \ }
 " Gitを便利に使う
 NeoBundle 'tpope/vim-fugitive'
+" Gitのdiffを表示してくれる
+NeoBundle 'airblade/vim-gitgutter'
 " indentの設定
 " NeoBundle 'Yggdroot/indentLine'
 " Rails向けのコマンドを提供する
@@ -37,6 +50,8 @@ NeoBundle 'tpope/vim-endwise'
 NeoBundle 'scrooloose/syntastic'
 " コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
+" vimのステータスライン
+NeoBundle 'itchyny/lightline.vim'
 
 " slimのsyntax
 NeoBundle 'slim-template/vim-slim'
@@ -53,7 +68,10 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'rking/ag.vim'
 " 括弧の設定プラグイン
 NeoBundle 'kana/vim-smartinput'
+" color scheme確認用
+NeoBundle 'ujihisa/unite-colorscheme'
 " color scheme
+NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'w0ng/vim-hybrid'
@@ -153,35 +171,9 @@ let g:syntastic_ruby_checkers = ['rubocop']
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
+let g:lightline = {
+      \ 'colorscheme': 'solarized'
+      \ }
 """"""""""""""""""""""""""""""
 
 " Plugin key-mappings.
@@ -223,6 +215,30 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'"
     let g:neocomplete#keyword_patterns._ = '\h\w*'
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+""""""""""""""""""""""""""""""
+" uniteをagで検索
+""""""""""""""""""""""""""""""
+" insert modeで開始
+let g:unite_enable_start_insert = 1
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" grep検索
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+
+" カーソル位置の単語をgrep検索
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+
+" grep検索結果の再呼び出し
+nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 """"""""""""""""""""""""""""""
 " 最後のカーソル位置を復元する
 """"""""""""""""""""""""""""""
