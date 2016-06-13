@@ -53,10 +53,18 @@ NeoBundle 'tomtom/tcomment_vim'
 " vimのステータスライン
 NeoBundle 'itchyny/lightline.vim'
 
+" cssのcolor picker
+NeoBundle 'lilydjwg/colorizer'
 " slimのsyntax
 NeoBundle 'slim-template/vim-slim'
 " coffeescriptのsyntax
 NeoBundle 'kchmck/vim-coffee-script'
+" javascriptのsyntax
+NeoBundle 'pangloss/vim-javascript'
+" jsxのsyntax
+NeoBundle 'mxw/vim-jsx'
+" sassのlinter
+NeoBundle 'gcorne/vim-sass-lint'
 " ログファイルを色付けしてくれる
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 " 行末の半角スペースを可視化
@@ -86,6 +94,8 @@ NeoBundle 'ciaranm/inkpot'
 NeoBundle 'schrooloose/nerdtree'
 " 隠しファイルをデフォルトで表示させる
 let NERDTreeShowHidden = 1
+" NERDTreeのキーバインド
+map <C-n> :NERDTreeToggle<CR>
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
 " デフォルトでツリーを表示させる
@@ -164,8 +174,11 @@ autocmd QuickFixCmdPost *grep* cwindow
 set tabstop=1
 " rubocopの設定
 let g:syntastic_mode_map = { 'mode': 'passive',
-                \ 'active_filetypes': ['ruby'] }
+                \ 'active_filetypes': ['ruby', 'coffee'] }
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_sass_checkers = ['sass_lint']
+let g:syntastic_scss_checkers = ['scss_lint']
 
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
