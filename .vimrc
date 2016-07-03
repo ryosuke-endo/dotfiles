@@ -79,6 +79,7 @@ NeoBundle 'kana/vim-smartinput'
 " color scheme確認用
 NeoBundle 'ujihisa/unite-colorscheme'
 " color scheme
+NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -99,11 +100,13 @@ map <C-n> :NERDTreeToggle<CR>
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
 " デフォルトでツリーを表示させる
-autocmd VimEnter * execute 'NERDTree'
+" autocmd VimEnter * execute 'NERDTree'
 
 call neobundle#end()
 
-colorscheme solarized
+" Colorschemeを設定するよりも前に書く必要がある
+set t_Co=256
+colorscheme Tomorrow-Night
 
 " Required:
 filetype plugin indent on
