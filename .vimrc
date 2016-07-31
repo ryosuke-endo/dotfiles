@@ -40,19 +40,28 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'tpope/vim-fugitive'
 " Gitのdiffを表示してくれる
 NeoBundle 'airblade/vim-gitgutter'
+" Gitのdiffのfile表示
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " indentの設定
 " NeoBundle 'Yggdroot/indentLine'
 " Rails向けのコマンドを提供する
 NeoBundle 'tpope/vim-rails'
 " Ruby向けにendを自動挿入してくれる
 NeoBundle 'tpope/vim-endwise'
+" Rubyのローカル変数をハイライトしてくれる
+NeoBundle 'todesking/ruby_hl_lvar.vim'
 " rubocopの設定
 NeoBundle 'scrooloose/syntastic'
 " コメントON/OFFを手軽に実行
 NeoBundle 'tomtom/tcomment_vim'
 " vimのステータスライン
-NeoBundle 'itchyny/lightline.vim'
-
+NeoBundle 'vim-airline/vim-airline'
+" ステータスラインのcolor scheme
+NeoBundle 'joshdick/airline-onedark.vim'
+" Ctagsの自動更新
+NeoBundle 'szw/vim-tags'
+" reference確認用
+NeoBundle 'thinca/vim-ref'
 " cssのcolor picker
 NeoBundle 'lilydjwg/colorizer'
 " slimのsyntax
@@ -84,7 +93,6 @@ NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'gosukiwi/vim-atom-dark'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'lifepillar/vim-solarized8'
 NeoBundle 'joshdick/onedark.vim'
@@ -105,8 +113,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 call neobundle#end()
 
 " Colorschemeを設定するよりも前に書く必要がある
-set t_Co=256
-colorscheme Tomorrow-Night
+" set t_Co=256
+" colorscheme Tomorrow-Night
+let g:onedark_termcolors=16
+
+colorscheme onedark
 
 " Required:
 filetype plugin indent on
@@ -127,10 +138,6 @@ set ruler
 set cmdheight=2
 " エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
 set laststatus=2
-" ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-" ステータス行に現在のgitブランチを表示する
-set statusline+=%{fugitive#statusline()}
 " ウィンドウのタイトルバーにファイルの情報等を表示する
 set title
 " コマンドラインモードで<Tab>キーによるファイル名補完を有効にする
@@ -182,16 +189,22 @@ let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_sass_checkers = ['sass_lint']
 let g:syntastic_scss_checkers = ['scss_lint']
-
+" vim-ref
+let g:ref_open = 'split'
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'solarized'
-      \ }
-""""""""""""""""""""""""""""""
-
+" Powerline系フォントを利用する
+let g:airline_power_fonts = 1
+" タブバーのカスタマイズを有効にする
+let g:airline#extensionstabline#enabled = 1
+" タブバーの右領域を非表示にする
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_close_button = 0
+" ブランチ情報を表示する
+let g:airline#extensions#branch#enabled = 1
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
