@@ -59,7 +59,7 @@ NeoBundle 'vim-airline/vim-airline'
 " ステータスラインのcolor scheme
 NeoBundle 'joshdick/airline-onedark.vim'
 " Ctagsの自動更新
-NeoBundle 'szw/vim-tags'
+" NeoBundle 'szw/vim-tags'
 " reference確認用
 NeoBundle 'thinca/vim-ref'
 " cssのcolor picker
@@ -89,7 +89,6 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'ujihisa/unite-colorscheme'
 " color scheme
 NeoBundle 'jpo/vim-railscasts-theme'
-NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'w0ng/vim-hybrid'
@@ -99,6 +98,7 @@ NeoBundle 'joshdick/onedark.vim'
 NeoBundle 'endel/vim-github-colorscheme'
 NeoBundle 'atelierbram/vim-colors_duotones'
 NeoBundle 'ciaranm/inkpot'
+NeoBundle 'whatyouhide/vim-gotham'
 " 画面上にディレクトリを表示してくれる
 NeoBundle 'schrooloose/nerdtree'
 " 隠しファイルをデフォルトで表示させる
