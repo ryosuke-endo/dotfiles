@@ -1,5 +1,8 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/mikami/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
+
+# rを立ち上げるため
+disable r
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -54,12 +57,19 @@ plugins=(brew git gem rbenv)
 # User configuration
 
 # rbenv settings
+export RBENV_ROOT=$HOME/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"'
 # export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+
+# nodebrew path
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# yarn path
+export PATH="$PATH:$HOME/.yarn/bin"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

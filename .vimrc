@@ -184,8 +184,9 @@ autocmd QuickFixCmdPost *grep* cwindow
 set tabstop=1
 " rubocopの設定
 let g:syntastic_mode_map = { 'mode': 'passive',
-                \ 'active_filetypes': ['ruby', 'coffee'] }
+                \ 'active_filetypes': ['ruby', 'coffee', 'javascript'] }
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_sass_checkers = ['sass_lint']
 let g:syntastic_scss_checkers = ['scss_lint']
