@@ -36,6 +36,10 @@ if dein#load_state('~/.cache/dein')
   " call dein#add('joshdick/airline-onedark.vim')
   " Ctagsの自動更新
   " call dein#add 'szw/vim-tags'
+  " prettier
+  call dein#add('prettier/vim-prettier')
+  " close-tag
+  call dein#add('alvan/vim-closetag')
   " reference確認用
   call dein#add('thinca/vim-ref')
   " cssのcolor picker
@@ -46,8 +50,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kchmck/vim-coffee-script')
   " javascriptのsyntax
   call dein#add('pangloss/vim-javascript')
-  " sassのlinter
-  call dein#add('gcorne/vim-sass-lint')
   " ログファイルを色付けしてくれる
   call dein#add('vim-scripts/AnsiEsc.vim')
   " 行末の半角スペースを可視化
@@ -148,12 +150,18 @@ autocmd QuickFixCmdPost *grep* cwindow
 set tabstop=1
 " rubocopの設定
 let g:syntastic_mode_map = { 'mode': 'passive',
-                \ 'active_filetypes': ['ruby', 'coffee', 'javascript'] }
-                let g:syntastic_ruby_checkers = ['rubocop']
-                let g:syntastic_javascript_checkers = ['eslint']
-                let g:syntastic_coffee_checkers = ['coffeelint']
-                let g:syntastic_sass_checkers = ['sass_lint']
-                let g:syntastic_scss_checkers = ['scss_lint']
+                \ 'active_filetypes': ['ruby', 'coffee', 'javascript', 'scss'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_sass_checkers = ['stylelint']
+let g:syntastic_scss_checkers = ['stylelint']
+let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
+
+" prettierの設定
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
 " vim-ref
  let g:ref_open = 'split'
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
@@ -170,6 +178,10 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_close_button = 0
 " ブランチ情報を表示する
 let g:airline#extensions#branch#enabled = 1
+
+" tagを閉じるようにする
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.jsx, *.js'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx, *.js'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 最後のカーソル位置を復元する
