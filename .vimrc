@@ -50,6 +50,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kchmck/vim-coffee-script')
   " javascriptのsyntax
   call dein#add('pangloss/vim-javascript')
+  " typescriptのsyntax
+  call dein#add('leafgarland/typescript-vim')
   " ログファイルを色付けしてくれる
   call dein#add('vim-scripts/AnsiEsc.vim')
   " 行末の半角スペースを可視化
@@ -69,6 +71,13 @@ if dein#load_state('~/.cache/dein')
   call dein#add('nightsense/simplifysimplify')
   " 画面上にディレクトリを表示してくれる
   call dein#add('scrooloose/nerdtree')
+
+  " Lsp
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings')
+  call dein#add('prabirshrestha/asyncomplete.vim')
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 
   call dein#end()
   call dein#save_state()
@@ -157,6 +166,9 @@ let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_sass_checkers = ['stylelint']
 let g:syntastic_scss_checkers = ['stylelint']
 let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
+
+" lspHoverを自動で叩かないようにする
+let lsp_signature_help_enabled = 0
 
 " prettierの設定
 " let g:prettier#autoformat = 0
