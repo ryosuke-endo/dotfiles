@@ -26,8 +26,12 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-endwise')
   " Rubyのローカル変数をハイライトしてくれる
   call dein#add('todesking/ruby_hl_lvar.vim')
-  " rubocopの設定
-  call dein#add('scrooloose/syntastic')
+  " syntax checker
+  if has('job') && has('channel') && has('timers')
+    call dein#add('w0rp/ale')
+  else
+    call dein#add('vim-syntastic/syntastic')
+  endif
   " コメントON/OFFを手軽に実行
   call dein#add('tomtom/tcomment_vim')
   " vimのステータスライン
@@ -46,8 +50,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('lilydjwg/colorizer')
   " slimのsyntax
   call dein#add('slim-template/vim-slim')
-  " coffeescriptのsyntax
-  call dein#add('kchmck/vim-coffee-script')
   " javascriptのsyntax
   call dein#add('pangloss/vim-javascript')
   " typescriptのsyntax
@@ -157,15 +159,22 @@ set clipboard=unnamed
 autocmd QuickFixCmdPost *grep* cwindow
 " indentの文字
 set tabstop=1
-" rubocopの設定
+" syntasticの設定
 let g:syntastic_mode_map = { 'mode': 'passive',
-                \ 'active_filetypes': ['ruby', 'coffee', 'javascript', 'scss'] }
+                \ 'active_filetypes': ['ruby', 'javascript', 'scss'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_sass_checkers = ['stylelint']
 let g:syntastic_scss_checkers = ['stylelint']
 let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
+
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\  'typescript': ['tsserver', 'eslint'],
+\  'ruby': ['rubocop'],
+\  'css': ['stylelint'],
+\  'scss': ['stylelint'],
+\}
 
 " lspHoverを自動で叩かないようにする
 let lsp_signature_help_enabled = 0
