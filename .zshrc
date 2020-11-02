@@ -18,3 +18,8 @@ eval "$(rbenv init -)"
 # alias
 alias g=git
 alias gbd="git branch --merged master | grep -vE '^\*|master$|develop$' | xargs -I % git branch -d %"
+
+#tmux
+if [[ ! -n $TMUX ]]; then
+  tmux new-session
+fi
