@@ -54,6 +54,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('pangloss/vim-javascript')
   " typescriptのsyntax
   call dein#add('leafgarland/typescript-vim')
+  " pretty jsx
+  call dein#add('maxmellon/vim-jsx-pretty')
   " ログファイルを色付けしてくれる
   call dein#add('vim-scripts/AnsiEsc.vim')
   " 行末の半角スペースを可視化
