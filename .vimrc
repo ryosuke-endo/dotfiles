@@ -79,9 +79,12 @@ if dein#load_state('~/.cache/dein')
   " Lsp
   call dein#add('prabirshrestha/async.vim')
   call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings')
   call dein#add('prabirshrestha/asyncomplete.vim')
   call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+  call dein#add('mattn/vim-lsp-settings')
+
+  " Go
+  call dein#add('mattn/vim-goimports')
 
   call dein#end()
   call dein#save_state()
@@ -177,9 +180,18 @@ let g:ale_linters = {
 \  'css': ['stylelint'],
 \  'scss': ['stylelint'],
 \}
+let g:ale_fixers = {
+\   'ruby': ['rubocop'],
+\}
+let g:ale_fix_on_save = 1
 
 " lspHoverを自動で叩かないようにする
 let lsp_signature_help_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+
+" copoiltの設定
+imap <silent> <M-i> <Plug>(copilot-next)
+imap <silent> <M-o> <Plug>(copilot-previous)
 
 " prettierの設定
 " let g:prettier#autoformat = 0
@@ -219,3 +231,16 @@ endif
 
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 filetype on
+
+" lsp-hover auto
+autocmd CursorMoved,CursorMovedI * call s:cursor_moved()
+function! s:cursor_moved() abort
+    if exists('s:timer_id')
+        call timer_stop(s:timer_id)
+    endif
+    let s:timer_id = timer_start(5000, function('s:enable_hover'))
+endfunction
+
+function! s:enable_hover(timer_id) abort
+    :LspHover
+endfunction
